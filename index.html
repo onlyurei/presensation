@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>PreSenSation - Audience View</title>
+<link href="css/global.css" rel="stylesheet" type="text/css" />
+<link href="css/excite-bike/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="includes/applesearch/default.css" id="default"  />
+<!-- dummy stylesheet - href to be swapped -->
+<link rel="stylesheet" type="text/css" href="includes/applesearch/dummy.css" id="dummy_css"  />
+<script type="text/javascript" src="includes/applesearch/applesearch.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+    window.onload = function () { applesearch.init(); }
+//]]>
+</script>
+<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery.jnotifica.min.js" type="text/javascript"></script>
+<script src="js/jquery.livequery.js" type="text/javascript"></script>
+<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
+<script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var html = "";
+		
+		var firstSlide = 1;
+		var lastSlide = 60;
+		var currentSlide = 1;
+		var slides = [];
+		var presentation = "presensation";
+		for (var i = firstSlide; i <= lastSlide; i++){
+			var src = 'images/slides/' + presentation + '/' + i.toString() + '.jpg';
+			slides.push({src:src});	
+		}
+		(function($) {
+			var cache = [];
+			// Arguments are image paths relative to the current page.
+			$.preLoadSlides = function() {
+				for (var i = 0; i < slides.length; i++) {
+					var cacheImage = document.createElement('img');
+					cacheImage.src = slides[i].src;
+					cache.push(cacheImage);
+				}
+			}
+		})(jQuery)
+		
+		$.preLoadSlides();
+		
+		$('input#srch_fld').livequery(function(){
+			$(this).quicksearch('table#participantsList tbody tr', {
+				'delay': 168,
+				'loader': 'span.loading',
+				'bind': 'keyup click change'
+			});
+		});
+		
+		$('input#srch_fld').livequery('click',function()
+	    {
+			$(this).select();
+		});
+		
+		$('#participantsList').livequery(function(){
+			$(this).tablesorter({sortList: [[1,0],[2,0],[0,0]]});	
+		});
+		
+		var participants = 
+		[
+		 {id:'martinsiegel',card:'true',avatar:'true',firstName:'Martin',lastName:'Siegel',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:'Professor of Informatics',degree:'Ph.D. Educational Psychology',email:'msiegel@indiana.edu',url:'',city:'Bloomington, IN',country:'United States',interests:'Design of Digital Learning Environments, including the development of deep conversation spaces as well as and time- and space-based visualization tools. Current focus: design pedagogy, the education of next generation interaction designers.'},
+		 {id:'erikstolterman',card:'true',avatar:'true',firstName:'Erik',lastName:'Stolterman',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:'Professor of Informatics',degree:'Ph.D. Informatics',email:'estolter@indiana.edu',url:'hcid.informatics.indiana.edu/eriksite',city:'Bloomington, IN',country:'United States',interests:'Interaction design, information systems design and management, information technology and societal change, Net-Life studies, and the philosophy, theory and methodology of design.'},
+		 {id:'eliblevis',card:'true',avatar:'true',firstName:'Eli',lastName:'Blevis',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:'Associate Professor of Informatics',degree:'Ph.D. Computer Science',email:'eblevis@indiana.edu',url:'eli.informatics.indiana.edu',city:'Bloomington, IN',country:'United States',interests:'Sustainable interaction design, design theory, digital photography, and studio-based learning.'},
+		 {id:'jeffreybardzell',card:'true',avatar:'true',firstName:'Jeffrey',lastName:'Bardzell',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:'Assistant Professor of Informatics',degree:'Ph.D. Comparative Literature',email:'jbardzel@indiana.edu',url:'www.informatics.indiana.edu/jbardzel',city:'Bloomington, IN',country:'United States',interests:'Relationships between software interfaces and innovation in amateur multimedia as well as on the philosophy and aesthetics of interaction design.'},
+		 {id:'shaowenbardzell',card:'true',avatar:'true',firstName:'Shaowen',lastName:'Bardzell',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:'Assistant Professor of Informatics',degree:'Ph.D.',email:'selu@indiana.edu',url:'mypage.iu.edu/~selu',city:'Bloomington, IN',country:'United States',interests:'Intimate interactions, designing for emotion in non-western homes, embodied collaboration in virtual spaces, and the application of critical and cultural theories for developing concept-driven design strategies.'},
+		 {id:'caseyaddy',card:'false',firstName:'Casey',lastName:'Addy',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'binaebiakah',card:'false',firstName:'Binaebi',lastName:'Akah',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'emilyallen',card:'false',firstName:'Amily',lastName:'Allen',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'augustoalves',card:'false',firstName:'Augusto',lastName:'Alves',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'chrisbasham',card:'false',firstName:'Chris',lastName:'Basham',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'adamculbertson',card:'false',firstName:'Adam',lastName:'Culbertson',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'robertbegley',card:'false',firstName:'Robert',lastName:'Begley',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'rachelbolton',card:'false',firstName:'Rachel',lastName:'Bolton',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'chadcamara',card:'false',firstName:'Chad',lastName:'Camara',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'susanmorsecoleman',card:'false',firstName:'Susan',lastName:'Coleman Morse',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'amandadennis',card:'false',firstName:'Amanda',lastName:'Dennis',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'lynndombrowski',card:'false',firstName:'Lynn',lastName:'Dombrowski',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'annaeaglin',card:'false',firstName:'Anna',lastName:'Eaglin',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'matthewedwards',card:'false',firstName:'Mattew',lastName:'Edwards',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'holtellis',card:'false',firstName:'Holt',lastName:'Ellis',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'ammarhalabi',card:'false',firstName:'Ammar',lastName:'Halabi',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'ravikumarjayaraman',card:'false',firstName:'Ravikumar',lastName:'Jayaraman',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'joyjung',card:'true',avatar:'true',firstName:'Joy Wei',lastName:'Jung',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:"Master's Student",degree:'MS Human-Computer Interaction / Design',email:'weijung@indiana.edu',url:'',city:'Bloomington, IN',country:'United States',interests:'Interface Design, Emotional Design, Experience Design'},
+		 {id:'gopinaathkannabiran',card:'false',firstName:'Gopinaath',lastName:'Kannabiran',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'robertkariuki',card:'false',firstName:'Robert',lastName:'Kariuki',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'loreleikelly',card:'false',firstName:'Lorelei',lastName:'Kelly',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'varunkhanduja',card:'false',firstName:'Varun',lastName:'Khanduja',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'seehyunkim',card:'false',firstName:'Seehyun',lastName:'Kim',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'fanxingkong',card:'false',firstName:'Fanxing',lastName:'Kong',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'xiaohanliu',card:'false',firstName:'Xiaohan',lastName:'Liu',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'caseyaddy',card:'false',firstName:'Casey',lastName:'Addy',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'heikomaiwand',card:'false',firstName:'Heiko',lastName:'Maiwand',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'andrewmckinney',card:'false',firstName:'Andrew (Drew)',lastName:'McKinney',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'ninamehta',card:'false',firstName:'Nina',lastName:'Mehta',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'wesmichaels',card:'false',firstName:'Wes',lastName:'Michaels',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'thalithnasir',card:'false',firstName:'Thalith',lastName:'Nasir',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'anthonynguyen',card:'false',firstName:'Anthony',lastName:'Nguyen',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'matthewobrakta',card:'false',firstName:'Matthew',lastName:'Obrakta',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'katieodonnell',card:'false',firstName:'Katie',lastName:'O Donnell',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'charlespage',card:'false',firstName:'Charles (CJ)',lastName:'Page',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'vidyapalaniswamy',card:'false',firstName:'Vidya',lastName:'Palaniswamy',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'danepetersen',card:'false',firstName:'Dane',lastName:'Petersen',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'danielrichert',card:'false',firstName:'Daniel',lastName:'Richert',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'moerafiuddin',card:'false',firstName:'Moe',lastName:'Rafiuddin',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'sarahreeder',card:'false',firstName:'Sarah',lastName:'Reeder',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'jamesschmittler',card:'false',firstName:'James',lastName:'Schmittler',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'benjaminserrette',card:'false',firstName:'Benjamin',lastName:'Serrette',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'samshahrani',card:'false',firstName:'Sam',lastName:'Shahrani',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'eugenesiew',card:'false',firstName:'Eugene',lastName:'Siew',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'matthewsnyder',card:'false',firstName:'Matthew',lastName:'Snyder',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'jaysteele',card:'false',firstName:'Jay',lastName:'Steele',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'kathleensurfus',card:'false',firstName:'Kathleen',lastName:'Surfus',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'anjanathirumalai',card:'false',firstName:'Anjana',lastName:'Thirumalai',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'marisolvillacres',card:'false',firstName:'Marisol',lastName:'Villacres',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'burrwalker',card:'false',firstName:'Burr',lastName:'Walker',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'xiyingwang',card:'false',firstName:'Xiying',lastName:'Wang',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'xuanwang',card:'false',firstName:'Xuan',lastName:'Wang',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'yuebowang',card:'true',avatar:'true',firstName:'Yuebo',lastName:'Wang',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:"Master's Student",degree:'MS Human-Computer Interaction / Design',email:'yuebwang@indiana.edu',url:'www.wangyuebo.com',city:'Bloomington, IN',country:'United States',interests:'Physical Computing, Emotional Design, Sustainable Design, Participatory Design'},
+		 {id:'franklinwestbrook',card:'false',firstName:'Franklin',lastName:'Westbrook',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'jeremiahwrestler',card:'false',firstName:'Jeremiah',lastName:'Wrestler',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'johnwayne',card:'false',firstName:'John',lastName:'Wayne',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'josephwilkerson',card:'false',firstName:'Joseph',lastName:'Wilkerson',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'jingyuwu',card:'true',avatar:'true',firstName:'Jingyu',lastName:'Wu',association:'Indiana University, Bloomington',department1:'School of Informatics and Computing',department2:'Department of Informatics',title:"Master's Student",degree:'MS Human-Computer Interaction / Design',email:'wuji@indiana.edu',url:'www.jingyuwu.com',city:'Bloomington, IN',country:'United States',interests:'Physical Computing, Emotional Design, Sustainable Design, Participatory Design'},
+		 {id:'josephyelochan',card:'false',firstName:'Joseph',lastName:'Yelochan',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'juntaoyu',card:'false',firstName:'Juntao',lastName:'Yu',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'zhemingzhang',card:'false',firstName:'Zheming',lastName:'Zhang',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'yujiazhao',card:'false',firstName:'Yujia',lastName:'Zhao',association:'Indiana University, Bloomington',title:"Master's Student"},
+		 {id:'tylerpace',card:'false',firstName:'Tyler',lastName:'Pace',association:'Indiana University, Bloomington',title:'Ph.D. Student'},
+		 {id:'kristinhanks',card:'false',firstName:'Kristin',lastName:'Hanks',association:'Indiana University, Bloomington',title:'Ph.D. Student'},
+		 {id:'kevinmakice',card:'false',firstName:'Kevin',lastName:'Makice',association:'Indiana University, Bloomington',title:'Ph.D. Student'},
+		 {id:'williamhazlewood',card:'false',firstName:'William',lastName:'Hazlewood',association:'Indiana University, Bloomington',title:'Ph.D. Student'},
+		 {id:'heekyoungjung',card:'false',firstName:'Heekyoung',lastName:'Jung',association:'Indiana University, Bloomington',title:'Ph.D. Student'},
+		 {id:'chungchinghuang',card:'false',firstName:'Chung-Ching',lastName:'Huang',association:'Indiana University, Bloomington',title:"Ph.D. Student"},
+		 {id:'janetberlin',card:'true',avatar:'false',firstName:'Janet',lastName:'Berlin',association:'Walt Disney',department1:'Animation Studios',department2:'',title:'Manager, Technology',degree:'',email:'janet.berlin@disneyanimation.com',url:'',city:'Burbank, CA',country:'United States',interests:''},
+		 {id:'rajeshsharma',card:'true',avatar:'false',firstName:'Rajesh',lastName:'Sharma',association:'Walt Disney',department1:'Animation Studios',department2:'',title:'Senior Development Software Engineer',degree:'',email:'rajesh.sharma@disneyanimation.com',url:'',city:'Burbank, CA',country:'United States',interests:''},
+		 {id:'genegolovchinsky',card:'true',avatar:'false',firstName:'Gene',lastName:'Golovchinsky',association:'FXPAL',department1:'',department2:'',title:'Senior Research Scientist',degree:'Ph.D.',email:'gene@fxpal.com',url:'www.fxpal.com',city:'Palo Alto, CA',country:'United States',interests:''},
+		 {id:'pernillaqvarfordt',card:'true',avatar:'false',firstName:'Pernilla',lastName:'Ovarfordt',association:'FXPAL',department1:'',department2:'',title:'Research Scientist',degree:'Ph.D.',email:'pernilla@fxpal.com',url:'www.fxpal.com',city:'Palo Alto, CA',country:'United States',interests:''},
+		 {id:'seungyonlee',card:'true',avatar:'false',firstName:'Seungyon',lastName:'Lee',association:'Georgia Institute of Technology',department1:'',department2:'Contextual Computing Group',title:'Ph.D. Student',degree:'Ph.D. Human-Centered Computing',email:'sylee@cc.gatech.edu',url:'www.cc.gatech.edu/~sylee',city:'Atlanta, GA',country:'United States',interests:'Ubiquitous and wearable computing, mobile HCI, haptic interface'},
+		 {id:'peggypeiyuchi',card:'true',avatar:'false',firstName:'Peggy Pei-Yu',lastName:'Chi',association:'Massachusetts Institute of Technology',department1:'',department2:'The Media Laboratory',title:'Research Assistant',degree:'MS Media Arts and Sciences',email:'peggychi@media.mit.edu',url:'web.media.mit.edu/~peggychi',city:'Cambridge, MA',country:'United States',interests:'Commonsense reasoning, intelligent systems, human-computer interaction, and ubiquitous/pervasive computing'},
+		 {id:'weizhou',card:'true',avatar:'false',firstName:'Wei',lastName:'Zhou',association:'Bloomberg',department1:'',department2:'',title:'User Experience Designer',degree:'MS Human-Computer Interaction',email:'wei@weidesignoffice.com',url:'weidesignoffice.com',city:'New York, NY',country:'United States',interests:'Interface Design, Design Research, User Interface Branding, Development Strategies'},
+		 {id:'gregdemchak',card:'true',avatar:'false',firstName:'Greg',lastName:'Demchak',association:'Autodesk',department1:'AEC Solutions',department2:'',title:'User Experience Designer',degree:'',email:'frame@autodesk.com',url:'www.autodesk.com',city:'Waltham, MA',country:'United States',interests:''},
+		];
+		var participantsRows = "";
+		for (var i = 0; i < participants.length; i++){
+			var name = participants[i].lastName + ", " + participants[i].firstName;
+			name = name.length > 16 ? name.substring(0,15) + ".." : name;
+			var title = participants[i].title.length > 30 ? participants[i].title.substring(0,29) + ".." : participants[i].title;
+			var association = participants[i].association.length > 36 ? participants[i].association.substring(0,35) + ".." : participants[i].association;
+			if (participants[i].card == "true") {
+				participantsRows += "<tr id='" + participants[i].id + "' class='nameCard_link link'><a href='#'><td>" + name + " <img style='float:right' src='images/avatars/card.png' /></td><td>" + association + "</td><td>" + title + "</td></a></tr>";
+			}
+			else{
+				participantsRows += "<tr id='" + participants[i].id + "'><td>" + name + "</td><td>" + association + "</td><td>" + title + "</td></tr>";
+			}
+		}
+		//trigger livequery updates
+		html = $('#participants').html();
+		$('#participants').html(html);
+		$('#participantsCount').html(participants.length);
+		$('#participantsRows').html(participantsRows);
+		//trigger livequery updates
+		html = $('#searchbox').html();
+		$('#searchbox').html(html);
+		
+		$('#nameCard').hide();
+		$('.nameCard_link').click(function(){
+	 		var id = $(this).attr('id');
+			for (var i = 0; i < participants.length; i++) {
+				if (participants[i].id == id) {
+					for (var key in participants[i]) {
+						if (key != 'avatar')
+							$('#' + key).html(participants[i][key]);
+					}
+					if (participants[i].avatar == 'true')
+						$('#avatar').attr('src', 'images/avatars/' + participants[i].id + '.jpg');
+				    else {
+						$('#avatar').attr('src', 'images/avatars/default.jpg');
+					}
+					$('#email').attr('href', 'mailto:' + participants[i].email);
+					$('#url').attr('href', 'http://' + participants[i].url);
+					$('#nameCard').dialog({
+						title: "Participant Profile",
+						show: "explode",
+						hide: "fold",
+			  			width: 838,
+			 			height: 345
+					});
+				}
+			}
+     	});
+		
+		
+		if($.browser.mozilla) {
+		 	$("textarea.notes").attr("rows", "2");
+	    }
+							   
+		$(".forminput").focus(function(){
+			if ($(this).val() == $(this).attr("title")){
+				$(this).val("");	
+			}
+	   });
+	   $(".forminput").blur(function(){
+			if ($(this).val() == ""){
+				$(this).val($(this).attr("title"));
+			}
+	   });
+		
+		$('.backward').mouseenter(function(){
+			if (currentSlide > firstSlide) {
+				$(this).addClass('link');
+				$(this).attr('src', 'images/backward_hover.gif');	
+			}
+		});
+		$('.backward').mouseleave(function(){
+			$(this).removeClass('link');							   
+			$(this).attr('src', 'images/backward.gif');							  
+		});
+		$('.forward').mouseenter(function(){
+			if (currentSlide < lastSlide) {
+				$(this).addClass('link');
+				$(this).attr('src', 'images/forward_hover.gif');
+			}
+		});
+		$('.forward').mouseleave(function(){
+			$(this).removeClass('link');
+			$(this).attr('src', 'images/forward.gif');							  
+		});
+
+		$('.backward').click(function(){
+			if (currentSlide > firstSlide) {
+				currentSlide--;
+				var url = slides[currentSlide - 1].src;
+				$('#currentSlide').attr('src', url);
+				if (currentSlide == firstSlide) {
+					$(this).attr('src', 'images/backward.gif');	
+					$(this).removeClass('link');
+				}
+			}
+		});
+		$('.forward').click(function(){
+			if (currentSlide < lastSlide) {
+				currentSlide++;
+				var url = slides[currentSlide - 1].src;
+				$('#currentSlide').attr('src', url);
+				if (currentSlide == lastSlide) {
+					$(this).attr('src', 'images/forward.gif');	
+					$(this).removeClass('link');
+				}
+			}						  
+		});
+		
+		var totalNotes = 0;
+		var notesID = 0;
+		var user = "joyjung";
+		$('#save').mouseenter(function(){
+			$(this).attr('src', 'images/save_hover.gif');
+		});
+		$('#save').mouseleave(function(){
+			$(this).attr('src', 'images/save.gif');							  
+		});
+		$('#save').live('click',function(){
+			var currentNotes = $('#currentNotes').val();
+			if (currentNotes == '' || currentNotes == 'Please type your question regarding this slide here.'){
+				$.jnotifica('Please type something.',{
+			  		position: 'bottom',
+			  		effect : 'slide',
+			  		padding: 6,
+			  		timeout: 1200,
+					color: '#000',
+			  		background: '#ff0',
+			  		msgCss : {
+						textAlign : 'center',
+						fontSize  : '168%',
+						fontWeight: 'bold'
+			  		}
+				});
+				return;
+			}
+			totalNotes++;
+			notesID++;
+			$('#currentNotes').val('');
+			var child = "<div class='hidden' id='slides-" + totalNotes.toString() + "'> <center> <img id='currentSlide' width='640' height='480' src='images/slides/" + presentation + '/' + currentSlide.toString() + ".jpg' /> </center> </div>";
+			$('#slides').append(child);
+			if($.browser.mozilla) {
+				child = "<div class='hidden' id='notes-" + totalNotes.toString() + "'><textarea title='" + notesID.toString() + "' name='" + totalNotes.toString() + "' class='notes' rows='2'>" + currentNotes + "</textarea><div><div style='padding-top:2px'><img src='images/submit.gif' class='submit link' id='" + totalNotes.toString() + "' />&nbsp;<img src='images/delete.gif' class='delete' name='" + totalNotes.toString() + "' title='false' /></div></div></div>";
+			}
+			else {
+				child = "<div class='hidden' id='notes-" + totalNotes.toString() + "'><textarea title='" + notesID.toString() + "' name='" + totalNotes.toString() + "' class='notes' rows='3'>" + currentNotes + "</textarea><div><div style='padding-top:2px'><img src='images/submit.gif' class='submit link' id='" + totalNotes.toString() + "' />&nbsp;<img src='images/delete.gif' class='delete' name='" + totalNotes.toString() + "' title='false' /></div></div></div>";
+			}
+			$('#notes').append(child);
+			child = "<li id='li-slides-" + totalNotes.toString() + "'><a href='#slides-" + totalNotes.toString() + "'>" + totalNotes.toString() + "</a></li>";
+			$('#slidesUL').append(child);
+			child = "<li id='li-notes-" + totalNotes.toString() + "'><a href='#notes-" + totalNotes.toString() + "'>" + totalNotes.toString() + "</a></li>";
+			$('#notesUL').append(child);
+			$('#slides').tabs('destroy');
+			$('#notes').tabs('destroy');
+			$('#slides').tabs({
+				show: function(event, ui) {
+					$('#notes').tabs('select', ui.index);	
+				}
+			});
+			$('#notes').tabs({
+				show: function(event, ui) {
+					$('#slides').tabs('select', ui.index);	
+				}
+			});
+			$('#slides').tabs('select', 0);
+			$('#notes').tabs('select', 0);
+			$.jnotifica('Question saved.',{
+			  position: 'bottom',
+			  effect : 'slide',
+			  padding: 6,
+			  timeout: 1200,
+			  background: '#000',
+			  msgCss : {
+				textAlign : 'center',
+				fontSize  : '168%',
+				fontWeight: 'bold'
+			  }
+			});
+		});
+		$('.submit').live('mouseenter',function(){
+			$(this).attr('src', 'images/submit_hover.gif');
+		});
+		$('.submit').live('mouseleave',function(){
+			$(this).attr('src', 'images/submit.gif');							  
+		});
+		$('.submit').live('click',function(){
+			var id = $(this).attr('id');
+			$(this).remove();
+			$("img[name='" + id + "']").attr('title', 'true');
+			$("textarea[name='" + id + "']").attr('readonly','readonly');
+			$.jnotifica('Question submitted to queue.',{
+			  position: 'bottom',
+			  effect : 'slide',
+			  padding: 6,
+			  timeout: 1200,
+			  background: '#0f0',
+			  msgCss : {
+				textAlign : 'center',
+				fontSize  : '168%',
+				fontWeight: 'bold'
+			  }
+			});
+		});
+		$('.delete').live('mouseenter',function(){
+			$(this).attr('src', 'images/delete_hover.gif');
+		});
+		$('.delete').live('mouseleave',function(){
+			$(this).attr('src', 'images/delete.gif');							  
+		});
+		$('.delete').live('click',function(){
+			var id = $(this).attr('name');
+			var isSubmitted = $(this).attr('title');
+			$('#slides').tabs('destroy');
+			$('#notes').tabs('destroy');
+			var slide = "#slides-" + id;
+			var slideli = "#li-slides-" + id;
+			var notes = "#notes-" + id;
+			var notesli = "#li-notes-" + id;
+			$(slide).remove();
+			$(slideli).remove();
+			$(notes).remove();
+			$(notesli).remove();
+			totalNotes--;
+			for (var i = parseInt(id) + 1; i <= totalNotes + 1; i++) {
+				var j = i - 1;
+				slide = "#slides-" + i.toString();
+				slideli = "#li-slides-" + i.toString();
+				notes = "#notes-" + i.toString();
+				notesli = "#li-notes-" + i.toString();
+				$(slide).attr('id', "slides-" + j.toString());
+				$(slideli).html("<a href='#slides-" + j.toString() + "'>" + j.toString() + "</a>");
+				$(slideli).attr('id', "li-slides-" + j.toString());
+				$(notes).attr('id', "notes-" + j.toString());
+				$(notesli).html("<a href='#notes-" + j.toString() + "'>" + j.toString() + "</a>");
+				$(notesli).attr('id', "li-notes-" + j.toString());
+				$('#' + i.toString()).attr('id', j.toString());
+				$("img[name='" + i.toString() + "']").attr('name', j.toString());
+			}
+			$('#slides').tabs({
+				show: function(event, ui) {
+					$('#notes').tabs('select', ui.index);	
+				}
+			});
+			$('#notes').tabs({
+				show: function(event, ui) {
+					$('#slides').tabs('select', ui.index);	
+				}
+			});
+			$('#slides').tabs('select', 0);
+			$('#notes').tabs('select', 0);
+			var text = "Question deleted.";
+			if (isSubmitted == "true") {
+				text = "Question deleted from queue.";
+			}
+			$.jnotifica(text,{
+			  position: 'bottom',
+			  effect : 'slide',
+			  padding: 6,
+			  timeout: 1200,
+			  background: '#f00',
+			  msgCss : {
+				textAlign : 'center',
+				fontSize  : '168%',
+				fontWeight: 'bold'
+			  }
+			});
+		});
+		
+		
+   		$('#slides').tabs({
+			show: function(event, ui) {
+				$('#notes').tabs('select', ui.index);	
+			}
+		});
+		$('#notes').tabs({
+			show: function(event, ui) {
+				$('#slides').tabs('select', ui.index);	
+			}
+		});
+ 	});	
+</script>
+</head>
+<body>
+<div id="main">
+  <div id="left">
+    <div id="slides">
+      <ul id="slidesUL">
+        <li id="li-slides-now"><a href="#slides-now">Now</a></li>
+      </ul>
+      <div id="slides-now"> <img class="backward" src="images/backward.gif" /> <img id="currentSlide" width="640" height="480" src="images/slides/presensation/1.jpg" /> <img class="forward" src="images/forward.gif" /> </div>
+    </div>
+    <div id="notes">
+      <ul id="notesUL">
+        <li id="li-notes-now"><a href="#notes-now">Now</a></li>
+      </ul>
+      <div id="notes-now">
+        <textarea id="currentNotes" class="notes forminput" rows="3" title="Please type your question regarding this slide here.">Please type your question regarding this slide here.</textarea>
+        <div style="padding-top:2px"> <img src="images/save.gif" id="save" class="link" /> </div>
+      </div>
+    </div>
+  </div>
+  <div id="right">
+    <div id="presenter">
+      <div id="presenterProfile"> <img src="images/avatars/chengfan.jpg" /> </div>
+      <div id="presenterBio">
+        <span id="presentationTitle">PreSenSation</span>
+        <br />
+        <span id="presentationSubtitle">Better experience for academic and professional presentations</span>
+        <h1> Cheng Fan </h1>
+        <h3> MS Human-Computer Interaction/Design <br />
+          Indiana University, Bloomington </h3>
+        <b> I present a presentation enhancement system for academic and professional presentations. The system is aming at improving presentation experience by helping the audience: 1) see the presentation slides clearly; 2) raise questions more fairly and effectively during Q &amp; A; and 3) networking with other people more easily.</b> </div>
+    </div>
+    <div id="participantsHeader">
+      <div id="participantsListLabel"><b>Participants List (<span id=participantsCount>0</span>)</b></div>
+      <div id="applesearch" class="floatRight"> <span class="sbox_l"></span>
+      <span id="searchbox" class="sbox"><input type="text" id="srch_fld" placeholder="Search..." autosave="applestyle_srch" results="6" /></span>
+      <span class="sbox_r" id="srch_clear"></span> </div>
+    </div>
+    <div id="participants">
+      <table id="participantsList" class="tablesorter">
+        <thead class="tableHeader">
+          <tr>
+            <th>Name</th>
+            <th>Association</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody id="participantsRows">
+        	<tr><td>Name</td><td>Association</td><td>Title</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="nameCard">
+    <div style="float: right;">
+      <input type="button" value="+ Contacts List" />
+    </div>
+    <div id="nameCard_avatar"> <img id="avatar" height="240" width="240" src="images/avatars/default.jpg" /> </div>
+    <div id="nameCard_profile">
+      <h1><span id="firstName">First Name</span>&nbsp;<span id="lastName">Last Name</span></h1>
+      <p> <b><span id="association">Association</span></b> <br />
+        <span id="department1">Department 1</span> <br />
+        <span id="department2">Department 2</span> </p>
+      <p> <b><span id="title">Title</span></b> <br />
+        <b><span id="degree">Degree</span></b> </p>
+      <p> <a id="email" href="#">Email</a> <br />
+        <a id="url" href="#" target="_blank">URL</a> <br />
+        <br />
+        <span id="city">City</span> <br />
+        <span id="country">Country</span> </p>
+    </div>
+    <div id="nameCard_interest">
+      <h4>Research Interests</h4>
+      <p id="interests"> Interests </p>
+    </div>
+    <div style="clear:both" />
+  </div>
+  <div style="clear:both" />
+</div>
+</body>
+</html>

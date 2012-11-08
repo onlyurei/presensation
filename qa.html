@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>PreSenSation - Presenter View</title>
+<link href="css/global.css" rel="stylesheet" type="text/css" />
+<link href="css/excite-bike/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="includes/applesearch/default.css" id="default"  />
+<!-- dummy stylesheet - href to be swapped -->
+<link rel="stylesheet" type="text/css" href="includes/applesearch/dummy.css" id="dummy_css"  />
+<script type="text/javascript" src="includes/applesearch/applesearch.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+    window.onload = function () { applesearch.init(); }
+//]]>
+</script>
+<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery.jnotifica.min.js" type="text/javascript"></script>
+<script src="js/jquery.livequery.js" type="text/javascript"></script>
+<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
+<script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var html = "";
+							   
+		var firstSlide = 1;
+		var currentSlide = 1;
+		var slides = [];
+		var presentation = "presensation";
+		var questions = 
+		[
+		 {id:'martinsiegel',slide:'42',avatar:'true',name:'Martin Siegel',association:'Indiana University, Bloomington',title:'Professor of Informatics',question:"Have you considered copyright issue? How do you prevent the audience from saving the slides if the presenter doesn't wish the slides to be distributed?"},
+		 {id:'jingyuwu',slide:'42',avatar:'true',name:'Jingyu Wu',association:'Indiana University, Bloomington',title:"Master's Student",question:"If a lot of audience use this tool during a presentation, how would the presenter feel if he/she see so many people are looking at their laptops instead of him/her?"},
+		 {id:'yuebowang',slide:'42',avatar:'true',name:'Yuebo Wang',association:'Indiana University, Bloomington',title:"Master's Student",question:"How do audience who cannot use this tool feel if they see others using this tool?"},
+		 {id:'joyjung',slide:'42',avatar:'true',name:'Joy Jung',association:'Indiana University, Bloomington',title:"Master's Student",question:"What's the motivation for the presenter to opt to use this tool?"},
+		 {id:'xuanwang',slide:'42',avatar:'false',name:'Xuan Wang',association:'Indiana University, Bloomington',title:"Master's Student",question:"Will this tool be displayed properly on devices that have smaller screens such as netbook or iPad?"},
+		 {id:'erikstolterman',slide:'44',avatar:'true',name:'Erik Stolterman',association:'Indiana University, Bloomington',title:'Professor of Informatics',question:"How does the slides playback synchronization work?"},
+		 {id:'martinsiegel',slide:'44',avatar:'true',name:'Martin Siegel',association:'Indiana University, Bloomington',title:'Professor of Informatics',question:"Are audience able to see the animations on the slides?"},
+		 {id:'jingyuwu',slide:'45',avatar:'true',name:'Jingyu Wu',association:'Indiana University, Bloomington',title:"Master's Student",question:"What if some audience post some malicious content using the question submission function?"},
+		 {id:'xiaohanliu',slide:'45',avatar:'false',name:'Xiaohan Liu',association:'Indiana University, Bloomington',title:"Master's Student",question:"Can the notes be saved for the audience's future reference?"},
+		 {id:'yuebowang',slide:'46',avatar:'true',name:'Yuebo Wang',association:'Indiana University, Bloomington',title:"Master's Student",question:"I remember previously you mentioned the avatar of the presenter will be the live video stream of the presenter's face using the bulit-in camera of the presenter's laptop, why you decided to use a static profile image of the presenter instead?"},
+		 {id:'joyjung',slide:'46',avatar:'true',name:'Joy Jung',association:'Indiana University, Bloomington',title:"Master's Student",question:"Are audience able to see more detailed information of the presenter such as research interests and contact information?"},
+		 {id:'susancolemanmorse',slide:'47',avatar:'false',name:'Susan Coleman Morse',association:'Indiana University, Bloomington',title:"Master's Student",question:"Have you considered including twitter into this panel? I've observed more and more people twittering about presentations during conferences."}
+		];
+		var slidesArr = new Array();
+		var questionList = "";
+		var questionListArr = new Array();
+		for (var i = 0; i < questions.length; i++) {
+			if (slidesArr.indexOf(questions[i].slide) == -1) {
+				slidesArr.push(questions[i].slide);
+			}
+		}
+		for (var i = 0; i < slidesArr.length; i++) {
+			questionList = "";
+			var src = 'images/slides/' + presentation + '/' + slidesArr[i] + '.jpg';
+			slides.push({src:src});	
+			for (var j = 0; j < questions.length; j++) {
+				if (questions[j].slide == slidesArr[i]) {
+					questionList += "<tr class='link question' id='" + questions[j].id + '-' + questions[j].slide + "'><td>" + questions[j].name + "</td><td>" + questions[j].question + "</td></tr>";
+				}
+			}
+			questionListArr[i] = questionList;
+		}
+		var lastSlide = slidesArr.length;
+		$('#currentSlide').attr('src', slides[0].src);
+		$('#questionList').html(questionListArr[0]);
+		$('#questionCount').html($('#questionList').children().length);
+		
+		$('input#srch_fld').livequery(function(){
+			$(this).quicksearch('table#participantsList tbody tr', {
+				'delay': 168,
+				'loader': 'span.loading',
+				'bind': 'keyup click change'
+			});
+		});
+		
+		$('input#srch_fld').livequery('click',function()
+	    {
+			$(this).select();
+	    });
+							   
+		$('#participantsList').livequery(function(){$(this).tablesorter()});
+		
+		(function($) {
+			var cache = [];
+			// Arguments are image paths relative to the current page.
+			$.preLoadSlides = function() {
+				for (var i = 0; i < slides.length; i++) {
+					var cacheImage = document.createElement('img');
+					cacheImage.src = slides[i].src;
+					cache.push(cacheImage);
+				}
+			}
+		})(jQuery)
+		
+		$.preLoadSlides();
+		
+		$('.question').livequery('click',function(){
+			var questionIDArr = new Array();
+			questionIDArr = $(this).attr('id').split('-');
+			var id = questionIDArr[0];
+			var slide = questionIDArr[1];
+			for (var i = 0; i < questions.length; i++){
+				if (questions[i].id == id && questions[i].slide == slide) {
+					$('#name').html(questions[i].name);
+					$('#association').html(questions[i].association);
+					$('#title').html(questions[i].title);
+					$('#question').html(questions[i].question);
+					if (questions[i].avatar == 'true') {
+						$('#question_avatar').attr('src', 'images/avatars/' + questions[i].id + '.jpg');
+					}
+					else {
+						$('#question_avatar').attr('src', 'images/avatars/default.jpg');
+					}
+				}
+			}
+			$('.question').each(function(){
+				$(this).css({'font-weight': 'normal'});
+			});
+			$(this).css({'font-weight': 'bold'});
+		});
+		
+		$('.backward').mouseenter(function(){
+			if (currentSlide > firstSlide) {
+				$(this).addClass('link');
+				$(this).attr('src', 'images/backward_hover.gif');	
+			}
+		});
+		$('.backward').mouseleave(function(){
+			$(this).removeClass('link');							   
+			$(this).attr('src', 'images/backward.gif');							  
+		});
+		$('.forward').mouseenter(function(){
+			if (currentSlide < lastSlide) {
+				$(this).addClass('link');
+				$(this).attr('src', 'images/forward_hover.gif');
+			}
+		});
+		$('.forward').mouseleave(function(){
+			$(this).removeClass('link');
+			$(this).attr('src', 'images/forward.gif');							  
+		});
+
+		$('.backward').click(function(){
+			if (currentSlide > firstSlide) {
+				currentSlide--;
+				var url = slides[currentSlide - 1].src;
+				$('#currentSlide').attr('src', url);
+				if (currentSlide == firstSlide) {
+					$(this).attr('src', 'images/backward.gif');	
+					$(this).removeClass('link');
+				}
+				//trigger livequery updates
+				html = $('#searchbox').html();
+				$('#searchbox').html(html);
+				html = $('#audience').html();
+				$('#audience').html(html);
+				$('#questionList').html(questionListArr[currentSlide - 1]);
+				$('#questionCount').html($('#questionList').children().length);
+				$('#name').html('Participant Name');
+				$('#association').html('Association');
+				$('#title').html('Title');
+				$('#question').html('Please select a question from the list on the right.');
+				$('#question_avatar').attr('src', 'images/avatars/default.jpg');
+			}
+		});
+		$('.forward').click(function(){
+			if (currentSlide < lastSlide) {
+				currentSlide++;
+				var url = slides[currentSlide - 1].src;
+				$('#currentSlide').attr('src', url);
+				if (currentSlide == lastSlide) {
+					$(this).attr('src', 'images/forward.gif');	
+					$(this).removeClass('link');
+				}
+				//trigger livequery updates
+				html = $('#searchbox').html();
+				$('#searchbox').html(html);
+				html = $('#audience').html();
+				$('#audience').html(html);
+				$('#questionList').html(questionListArr[currentSlide - 1]);
+				$('#questionCount').html($('#questionList').children().length);
+				$('#name').html('Participant Name');
+				$('#association').html('Association');
+				$('#title').html('Title');
+				$('#question').html('Please select a question from the list on the right.');
+				$('#question_avatar').attr('src', 'images/avatars/default.jpg');
+			}						  
+		});
+ 	});	
+</script>
+</head>
+<body>
+<div id="main">
+  <div id="left">
+    <div id="questionDiv">
+      <img id="question_avatar" height="150" width="150" src="images/avatars/default.jpg" />
+      <div id="question_detail">
+      	<span id="name"> Participant Name</span>&nbsp;&nbsp;<b>(<span id="association">Association</span>)</b>
+        <br />
+        <b><span id="title">Title</span></b>
+        <p id="question_text">
+        	"<span id="question">Please select a question from the list on the right.</span>"
+        </p>
+      </div>
+    </div>
+    <div id="slides_presenter">
+      <img class="backward" src="images/backward.gif" /> <img id="currentSlide" width="640" height="480" src="" /> <img class="forward" src="images/forward.gif" />
+    </div>
+  </div>
+  <div id="right">
+    <div id="participantsHeader">
+      <div id="participantsListLabel"><b>Questions List of the Current Slide (<span id=questionCount>0</span>)</b></div>
+      <div id="applesearch" class="floatRight"> <span class="sbox_l"></span>
+        <span id="searchbox" class="sbox"><input type="text" id="srch_fld" placeholder="Search..." autosave="applestyle_srch" results="6" /></span>
+        <span class="sbox_r" id="srch_clear"></span> </div>
+    </div>
+    <div id="audience">
+      <table id="participantsList" class="tablesorter">
+        <thead class="tableHeader">
+          <tr>
+            <th width="117">Name</th>
+            <th width="397">Question</th>
+          </tr>
+        </thead>
+        <tbody id="questionList">
+        	<tr><td>Name</td><td>Question</td></tr>
+        </tbody> 
+      </table>
+    </div>
+  </div>
+  <div style="clear:both" />
+</div>
+</body>
+</html>

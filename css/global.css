@@ -1,0 +1,195 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	background: #eee;
+	font: 12px Arial, sans-serif;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	color: #333;
+	text-align: center;
+}
+
+div#main {
+	padding: 6px 6px 6px 6px;
+	margin: auto;
+	width: 1242px;
+	min-width: 1242px;
+	text-align: left;
+}
+
+div#left {
+	float: left;
+	width: 688px;
+}
+
+div.slidesImage {
+}
+
+div#notes {
+	clear: both;
+	margin-top: 6px;
+}
+
+textarea.notes {
+	width: 674px;	
+}
+
+div#right {
+	margin-left: 696px;
+	width: 544px;
+}
+
+div#presenter {
+	height: 252px;	
+}
+
+div#presenterProfile {
+	float: left;
+}
+
+div#presenterBio {
+	padding: 2px 4px 2px 4px;
+	border: solid 1px #666;
+	margin-left: 250px;
+	width: 282px;
+	height: 236px;
+	overflow:auto;
+}
+
+span#presentationTitle {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+span#presentationSubtitle {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+div#participants {
+	margin-top: 5px;
+	clear: right;
+	max-height: 389px;
+	overflow: auto;
+}
+
+div#audience {
+	margin-top: 5px;
+	clear: right;
+	max-height: 618px;
+	overflow: auto;
+}
+
+div#participantsListLabel {
+	float: left;
+	padding-top: 6px;
+}
+
+.floatRight {
+	float: right;	
+}
+
+div#nameCard {
+	text-align: left;	
+}
+
+div#nameCard_avatar {
+	float: left;
+	width: 240px;
+	margin-top: 22px;
+}
+
+div#nameCard_profile {
+	float: left;
+	margin-left: 28px;
+	width: 255px;
+}
+
+div#nameCard_interest {
+	float: left;
+	margin-left: 0px;
+	margin-top: 27px;
+	width: 280px;
+	max-width: 280px;
+	height: 230px;
+	max-height: 230px;
+	overflow: auto;
+}
+
+div#slides_presenter {
+	clear:both;
+	padding-top: 10px;
+}
+
+div#questionDiv {
+	padding-left: 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border: 1px dashed #333;
+	width: 672px;
+	height: 152px;
+}
+
+img#question_avatar {
+	float:left;
+}
+
+div#question_detail {
+	float: left;
+	margin-left: 10px;
+	max-width: 509px;
+	max-height: 150px;
+}
+
+span#name {
+	font-weight: bold;
+	font-size: 19px;
+}
+
+p#question_text {
+	font-size: 18px;
+	overflow: auto;
+	max-width: 520px;
+	max-height: 100px;
+	line-height: 20px;
+}
+
+/* tables */
+table tbody tr:nth-child(even) {
+	background-color: #cacaca;
+}
+table#participantsList {
+	width: 526px;
+}
+table#participantsList tr{
+	vertical-align: bottom;
+	/*height: 20px;*/
+}
+table#participantsList tr:hover{
+	background-color: #F90;
+}
+
+table.tablesorter thead tr .header {
+	background-color: #bfbfbf;
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+
+/* !tables */
+
+.link:hover {
+	cursor: pointer;	
+}
+
+.hidden {
+	display: none;	
+}
